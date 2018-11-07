@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MedicamentosProyecto</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Bienvenido</string>
+    <string name="nav_header_subtitle">Cuidamos tu salud</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Nombre</string>
+    <string name="padecimiento">Padecimiento</string>
+    <string name="Doctor">Quien lo receto</string>
+    
+    <string-array name="time_select">
+        <item name="dia">Dia/s</item>
+        <item name="semana">Semana/s</item>
+        <item name="mes">Mes/es</item>
+        <item name="año">Ano/s</item>
+    </string-array>
+
+    <string-array name="time_numberselect">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+</resources>
