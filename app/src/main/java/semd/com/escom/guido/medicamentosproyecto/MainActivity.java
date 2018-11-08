@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     AddFragment addFragment = new AddFragment();
     InitFragment initFragment = new InitFragment();
+    MapFragment mapFragment = new MapFragment();
+    CalendarFragment calendarFragment = new CalendarFragment();
 
 
     @Override
@@ -57,9 +59,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_newmedicamento) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContent, addFragment);
             if(fragmentManager.getBackStackEntryCount() <1){
@@ -67,9 +69,17 @@ public class MainActivity extends AppCompatActivity
             }
             fragmentTransaction.commit();
         } else if (id == R.id.nav_farmacia) {
-            //En caso de ver las farmacias
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContent, mapFragment);
+            if(fragmentManager.getBackStackEntryCount() <1){
+                fragmentTransaction.addToBackStack(null);
+            }
         } else if (id == R.id.nav_calendario) {
-            //En caso de ver calendario
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContent, calendarFragment);
+            if(fragmentManager.getBackStackEntryCount() <1){
+                fragmentTransaction.addToBackStack(null);
+            }
         } else if (id == R.id.nav_tools) {
 
         }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /*
@@ -17,6 +18,8 @@ import android.widget.Toast;
 public class AddFragment extends Fragment {
     Button envaseFoto;
     Button medicamentoFoto;
+    ImageView envase;
+    ImageView medicamento;
 
     public AddFragment() {
         // Required empty public constructor
@@ -26,7 +29,8 @@ public class AddFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_add, container, false);
-
+        envase = vista.findViewById(R.id.imageViewEnvase);
+        medicamento = vista.findViewById(R.id.imageViewMedicamento);
         //onClick del boton de envase
         envaseFoto = vista.findViewById(R.id.buttonEnvase);
         envaseFoto.setOnClickListener(new View.OnClickListener(){
@@ -34,6 +38,7 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Envase", Toast.LENGTH_SHORT).show();
+                envase.setImageResource(R.drawable.ic_farmacia);
             }
         });
 
@@ -43,6 +48,7 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Medicamento", Toast.LENGTH_SHORT).show();
+                medicamento.setImageResource(R.drawable.ic_farmacia);
             }
         });
         return vista;
