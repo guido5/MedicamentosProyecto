@@ -1,80 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AddFragment">
-
-    <!-- Aqui se agregan los atributos para el fragment -->
-
-    <TextView
-        android:id="@+id/textVname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/name" />
-
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:id="@+id/textView3Descripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/padecimiento" />
-
-    <EditText
-        android:id="@+id/editTextPadecimiento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/Doctor" />
-
-    <EditText
-        android:id="@+id/editTextDoctor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:ignore="LabelFor" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        tools:ignore="UselessLeaf">
+        android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spinner_number_time"
+        <!-- Aqui se agregan los atributos para el fragment -->
+
+        <TextView
+            android:id="@+id/textVname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:entries="@array/time_numberselect"/>
+            android:ems="10"
+            android:textAlignment="center"
+            android:inputType="textPersonName"
+            tools:ignore="LabelFor" />
 
-        <Spinner
-            android:id="@+id/spinner_time"
+        <TextView
+            android:id="@+id/textView3Descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/padecimiento" />
+
+        <EditText
+            android:id="@+id/editTextPadecimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="viewEnd"
-            android:entries="@array/time_select"/>
+            android:textAlignment="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/textViewDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Doctor" />
+
+        <EditText
+            android:id="@+id/editTextDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="textPersonName"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/textViewCheckPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="@string/checkpoint" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UselessLeaf">
+
+            <Spinner
+                android:id="@+id/spinner_number_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:entries="@array/time_numberselect"/>
+
+            <Spinner
+                android:id="@+id/spinner_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:entries="@array/time_select"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewInit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/init" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextTimeInit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ems="10"
+                android:inputType="time"
+                tools:ignore="LabelFor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonEnvase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/envase" />
+
+                <Button
+                    android:id="@+id/buttonMedicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/medicamento" />
+
+            </LinearLayout>
+            <!--
+            <ImageView
+                android:id="@+id/imageViewEnvase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:src="" />
+
+            <ImageView
+                android:id="@+id/imageViewMedicamento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:src="" />
+            -->
+        </LinearLayout>
+
+
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
+

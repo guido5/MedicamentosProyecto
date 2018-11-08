@@ -9,7 +9,11 @@
     <string name="name">Nombre</string>
     <string name="padecimiento">Padecimiento</string>
     <string name="Doctor">Quien lo receto</string>
-    
+    <string name="checkpoint">Cada cuanto se debe tomar el medicament</string>
+    <string name="init">Desde cuando inicias este medicamento</string>
+    <string name="envase">Envase</string>
+    <string name="medicamento">Medicamento</string>
+
     <string-array name="time_select">
         <item name="dia">Dia/s</item>
         <item name="semana">Semana/s</item>
