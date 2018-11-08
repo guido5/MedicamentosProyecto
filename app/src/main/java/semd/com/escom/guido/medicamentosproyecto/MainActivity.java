@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
@@ -48,7 +49,10 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContent, initFragment);
+            fragmentTransaction.commit();
         }
     }
 
@@ -59,27 +63,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_newmedicamento) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContent, addFragment);
-            if(fragmentManager.getBackStackEntryCount() <1){
-                fragmentTransaction.addToBackStack(null);
-            }
             fragmentTransaction.commit();
         } else if (id == R.id.nav_farmacia) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContent, mapFragment);
-            if(fragmentManager.getBackStackEntryCount() <1){
-                fragmentTransaction.addToBackStack(null);
-            }
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_calendario) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContent, calendarFragment);
-            if(fragmentManager.getBackStackEntryCount() <1){
-                fragmentTransaction.addToBackStack(null);
-            }
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_tools) {
 
         }

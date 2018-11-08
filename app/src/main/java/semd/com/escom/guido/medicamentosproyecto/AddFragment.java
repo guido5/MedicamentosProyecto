@@ -37,7 +37,6 @@ public class AddFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Envase", Toast.LENGTH_SHORT).show();
                 envase.setImageResource(R.drawable.ic_farmacia);
             }
         });
@@ -47,10 +46,15 @@ public class AddFragment extends Fragment {
         medicamentoFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Medicamento", Toast.LENGTH_SHORT).show();
                 medicamento.setImageResource(R.drawable.ic_farmacia);
             }
         });
         return vista;
+    }
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(getContext(), "Se murio el fragmento", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
     }
 }
