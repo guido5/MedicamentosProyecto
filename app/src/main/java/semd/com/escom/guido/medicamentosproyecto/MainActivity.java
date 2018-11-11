@@ -1,5 +1,7 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,11 +15,15 @@ import android.util.Log;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, AddFragmentInterface{
+
+    //Objetos e intancias
     AddFragment addFragment = new AddFragment();
     InitFragment initFragment = new InitFragment();
     MapFragment mapFragment = new MapFragment();
     CalendarFragment calendarFragment = new CalendarFragment();
+    DBHelper dbHelper;
+    SQLiteDatabase db;
 
 
     @Override
@@ -36,7 +42,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Agregacion del fragment
+        //Implementacion de la BD.
+        dbHelper = new DBHelper(this);      //Crea la base de datos al llamar al constructor y crea las tablas indicadas.
+        db = dbHelper.getWritableDatabase();        //Crea una instancia de la base de datos que creamos para poder editarla.
+
+        //Agregacion del fragment ListView
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentContent, initFragment);
@@ -86,6 +96,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void insertRowInMedicamentoTable(ContentValues valores) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();     //Cierre de la bd cuando se cierra la actividad.
+        super.onDestroy();
     }
 
     /*
