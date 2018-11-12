@@ -1,8 +1,10 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -14,8 +16,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AddFragmentInterface{
+        implements NavigationView.OnNavigationItemSelectedListener, AddFragmentInterface, InitFragmentInterface{
+    String[] projection = {
+            BaseColumns._ID,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO
+    };
+    String sortOrder = BaseColumns._ID + " DESC";
 
     //Objetos e intancias
     AddFragment addFragment = new AddFragment();
@@ -113,6 +125,30 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         db.close();     //Cierre de la bd cuando se cierra la actividad.
         super.onDestroy();
+    }
+
+    @Override
+    public List<MedicamentoClass> queryMedicamentos() {
+        List<MedicamentoClass> lista = new ArrayList<MedicamentoClass>();
+        Cursor cursor = db.query(DatabaseSchema.Medicamentos.TABLE_NAME,
+                        projection,
+                null,
+                null,
+                null,
+                null,
+                    sortOrder
+                );
+
+        while(cursor.moveToNext()) {
+            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
+            String nombre = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE));
+            String para_que = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE));
+            String medicamentoFoto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO));
+            MedicamentoClass currentMedicamento = new MedicamentoClass(nombre,para_que,medicamentoFoto);
+            lista.add(currentMedicamento);
+        }
+
+        return lista;
     }
 
     /*

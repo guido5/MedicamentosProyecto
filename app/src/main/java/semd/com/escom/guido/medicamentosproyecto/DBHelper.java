@@ -16,6 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
             DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR + " TEXT," +
             DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS + " TEXT," +
             DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA + " TEXT," +
+            DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT + " TEXT," +
             DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO+ " TEXT," +
             DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO + " TEXT)";
 

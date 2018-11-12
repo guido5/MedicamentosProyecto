@@ -25,5 +25,11 @@ public class MedicamentoClass {
         this.medicamento_foto = medicamento_foto;
     }
 
+    public MedicamentoClass(String nombre, String para_que, String medicamento_foto){
+        this.nombre = nombre;
+        this.para_que = para_que;
+        this.medicamento_foto = medicamento_foto;
+    }
+
 
 }
