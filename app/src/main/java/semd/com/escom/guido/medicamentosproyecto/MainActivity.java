@@ -100,7 +100,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void insertRowInMedicamentoTable(ContentValues valores) {
+        long newRowId = db.insert(DatabaseSchema.Medicamentos.TABLE_NAME, null, valores);
 
+        //Recarga del fragment ListView
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContent, initFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
