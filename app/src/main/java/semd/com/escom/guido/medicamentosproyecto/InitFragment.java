@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,11 +37,19 @@ public class InitFragment extends Fragment {
             //Hacemos busqueda en la bd
             lista.addAll(context.queryMedicamentos());
         }else{
-            //Refresh a la lista (borrado y carga de nuevo)
+            lista.clear();
+            lista.addAll(context.queryMedicamentos());
         }
 
         listViewAdapter = new ListViewAdapter(getContext(), R.layout.list_item, lista);
         listView.setAdapter(listViewAdapter);
+        //Agrega eventos al tocar el elementos del listview
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "Se selecciono uno", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return vista;
     }
@@ -50,4 +59,6 @@ public class InitFragment extends Fragment {
         Toast.makeText(getContext(), "Se murio InitFragment", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
+
+
 }
