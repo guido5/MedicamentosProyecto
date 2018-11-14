@@ -1,7 +1,7 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
 public class MedicamentoClass {
-
+    public long id;
     public String nombre;
     public String para_que;
     public String nombre_doctor;
@@ -11,10 +11,10 @@ public class MedicamentoClass {
     public String envase_foto;
     public String medicamento_foto;
 
-    public MedicamentoClass(String nombre, String para_que, String nombre_doctor,
+    public MedicamentoClass(long id, String nombre, String para_que, String nombre_doctor,
                             String cuantos_dias, String init_fecha, String checkpoint,
                             String envase_foto, String medicamento_foto){
-
+        this.id = id;
         this.nombre = nombre;
         this.para_que = para_que;
         this.nombre_doctor = nombre_doctor;
@@ -24,12 +24,5 @@ public class MedicamentoClass {
         this.envase_foto = envase_foto;
         this.medicamento_foto = medicamento_foto;
     }
-
-    public MedicamentoClass(String nombre, String para_que, String medicamento_foto){
-        this.nombre = nombre;
-        this.para_que = para_que;
-        this.medicamento_foto = medicamento_foto;
-    }
-
 
 }

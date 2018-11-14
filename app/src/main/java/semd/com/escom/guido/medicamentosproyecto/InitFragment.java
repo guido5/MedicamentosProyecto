@@ -47,7 +47,8 @@ public class InitFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Se selecciono uno", Toast.LENGTH_SHORT).show();
+                AddFragment modificarFragment = new AddFragment(lista.get(position));
+                context.showUpdateFragment(modificarFragment);
             }
         });
 

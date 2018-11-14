@@ -25,8 +25,14 @@ public class MainActivity extends AppCompatActivity
             BaseColumns._ID,
             DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE,
             DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS,
+            DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO,
             DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO
     };
+
     String sortOrder = BaseColumns._ID + " DESC";
 
     //Objetos e intancias
@@ -122,9 +128,31 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void modifyRowInMedicamentoTable(ContentValues valores, MedicamentoClass currentItem) {
+        // Which row to update, based on the title
+        String selection = BaseColumns._ID + " LIKE ?";
+        String selection_args[] = {String.valueOf(currentItem.id)};
+        long updateRowId = db.update(DatabaseSchema.Medicamentos.TABLE_NAME, valores, selection, selection_args);
+
+        //Recarga del fragment ListView
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContent, initFragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
     protected void onDestroy() {
         db.close();     //Cierre de la bd cuando se cierra la actividad.
         super.onDestroy();
+    }
+
+    @Override
+    public void showUpdateFragment(AddFragment currentItem) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContent, currentItem);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -143,8 +171,13 @@ public class MainActivity extends AppCompatActivity
             long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
             String nombre = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE));
             String para_que = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE));
+            String nombre_docto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR));
+            String init_fecha = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA));
+            String checkpoint = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT));
+            String cuantos_dias = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
             String medicamentoFoto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO));
-            MedicamentoClass currentMedicamento = new MedicamentoClass(nombre,para_que,medicamentoFoto);
+            String envaseFoto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO));
+            MedicamentoClass currentMedicamento = new MedicamentoClass(itemId, nombre,para_que,nombre_docto,cuantos_dias,init_fecha,checkpoint,envaseFoto, medicamentoFoto);
             lista.add(currentMedicamento);
         }
 

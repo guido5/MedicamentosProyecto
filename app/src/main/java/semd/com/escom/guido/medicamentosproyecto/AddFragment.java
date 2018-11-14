@@ -1,6 +1,7 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -52,9 +53,17 @@ public class AddFragment extends Fragment {
     Button medicamentoFoto;
     Button save;
     AddFragmentInterface context;
+    MedicamentoClass currentItem;
+    private int add_modify = 0;
 
     public AddFragment() {
-        // Required empty public constructor
+        add_modify = 0;
+    }
+
+    @SuppressLint("ValidFragment")
+    public AddFragment(MedicamentoClass currentItem){
+        this.currentItem = currentItem;
+        add_modify = 1;
     }
 
     @Override
@@ -77,6 +86,12 @@ public class AddFragment extends Fragment {
         checkpoint = vista.findViewById(R.id.spinner_checkpoint);
         envase = vista.findViewById(R.id.imageViewEnvase);
         medicamento = vista.findViewById(R.id.imageViewMedicamento);
+
+        if(add_modify == 1){
+            nombre.setText(currentItem.nombre);
+            padecimiento.setText(currentItem.para_que);
+            doctor.setText(currentItem.nombre_doctor);
+        }
 
         //onClick del boton de envase
         envaseFoto = vista.findViewById(R.id.buttonEnvase);
@@ -128,7 +143,12 @@ public class AddFragment extends Fragment {
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO, envaseFilePath);
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO, medicamentoFilePath);
 
-                context.insertRowInMedicamentoTable(values);
+
+                if(add_modify == 0) {
+                    context.insertRowInMedicamentoTable(values);
+                }else{
+                    context.modifyRowInMedicamentoTable(values, currentItem);
+                }
 
             }
         });
