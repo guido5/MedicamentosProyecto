@@ -56,6 +56,14 @@ public class ListViewAdapter extends BaseAdapter {
         textViewname.setText(currentItem.nombre);
         textViewpadecimiento = v.findViewById(R.id.textViewPadecimiento);
         textViewpadecimiento.setText(currentItem.para_que);
+        imageViewmedicamento = v.findViewById(R.id.imageView2);
+        String file = names.get(position).medicamento_foto;
+
+        BitmapFactory.Options options;
+        options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
+        imageViewmedicamento.setImageBitmap(bitmap);
 
         //Devolvemos la vista inflada y modificada con nuestros datos
         return v;

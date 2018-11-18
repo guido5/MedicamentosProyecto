@@ -107,8 +107,7 @@ public class AddFragment extends Fragment {
         medicamentoFoto = vista.findViewById(R.id.buttonMedicamento);
         medicamentoFoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                takePictureIntent("medicamento", 2);
+            public void onClick(View v) { takePictureIntent("medicamento", 2);
             }
         });
 
@@ -134,6 +133,35 @@ public class AddFragment extends Fragment {
                     Toast.makeText((Context) context, "Error, no se encontro la seleccion posible", Toast.LENGTH_SHORT).show();
                 }
                 ContentValues values = new ContentValues();
+                if(nombre.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(padecimiento.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(doctor.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(time_init.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(envaseFilePath.equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(medicamentoFilePath.equals("")){
+                    Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE, nombre.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE, padecimiento.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR, doctor.getText().toString());
@@ -157,9 +185,9 @@ public class AddFragment extends Fragment {
 
     private File createImageFile(String type) throws IOException {
         // Create an image file name
-        String imageFileName = nombre.getText().toString() + "-" + type;
+        String imageFileName = nombre.getText().toString() + "_" + type;
         File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName,".jpg", storageDir);
+        File image = File.createTempFile(imageFileName,".png", storageDir);
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
