@@ -47,5 +47,6 @@
     <string name="tania1">With\\nAnim</string>
     <string name="tania2">Without\\nAnim</string>
     <string name="tania3">Custom\\nRange</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
