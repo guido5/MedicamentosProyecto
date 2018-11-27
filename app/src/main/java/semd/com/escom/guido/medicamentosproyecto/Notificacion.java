@@ -1,8 +1,11 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 public class Notificacion {
 
@@ -38,16 +41,22 @@ public class Notificacion {
     }
 
     private void creaNotificacion(String title, String text){
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
         notificacion =new NotificationCompat.Builder(context, "normal")
+                .setSmallIcon(R.drawable.new_medicamento_image_notification)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_MAX);
-                //.setContentIntent(resultPendingIntent)
-                //.setAutoCancel(true);
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentIntent(resultPendingIntent)
+                .setAutoCancel(true);
     }
 
     public void dispararNotificacion(){
-        manager.notify();
+        manager.notify(0, notificacion.build());
     }
 }
 

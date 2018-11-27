@@ -117,9 +117,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void insertRowInMedicamentoTable(ContentValues valores) {
-        //long newRowId = db.insert(DatabaseSchema.Medicamentos.TABLE_NAME, null, valores);
-        Notificacion notificacion = new Notificacion(this, Notificacion.NEW_MEDICAMENTO_ADD);
-        notificacion.dispararNotificacion();
+        long newRowId = db.insert(DatabaseSchema.Medicamentos.TABLE_NAME, null, valores);
+
+        Intent service = new Intent(this, CronometroService.class);
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
+        startService(service);          //Inicio del servicio
+
+
+        //Notificacion notificacion = new Notificacion(this, Notificacion.NEW_MEDICAMENTO_ADD);
+        //notificacion.dispararNotificacion();
 
 
         //Recarga del fragment ListView
