@@ -1,6 +1,7 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity
     //Objetos e intancias
     AddFragment addFragment = new AddFragment();
     InitFragment initFragment = new InitFragment();
-    MapFragment mapFragment = new MapFragment();
     CalendarFragment calendarFragment = new CalendarFragment();
     DBHelper dbHelper;
     SQLiteDatabase db;
@@ -99,10 +99,8 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragmentContent, addFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_farmacia) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContent, mapFragment);
-            fragmentTransaction.commit();
+            Intent maps = new Intent(this, MapsActivity.class);
+            startActivity(maps);
         } else if (id == R.id.nav_calendario) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -120,6 +118,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void insertRowInMedicamentoTable(ContentValues valores) {
         long newRowId = db.insert(DatabaseSchema.Medicamentos.TABLE_NAME, null, valores);
+
+        Intent service = new Intent(this, CronometroService.class);
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
+        startService(service);          //Inicio del servicio
+
+
+        //Notificacion notificacion = new Notificacion(this, Notificacion.NEW_MEDICAMENTO_ADD);
+        //notificacion.dispararNotificacion();
+
 
         //Recarga del fragment ListView
         FragmentManager fragmentManager = getSupportFragmentManager();
