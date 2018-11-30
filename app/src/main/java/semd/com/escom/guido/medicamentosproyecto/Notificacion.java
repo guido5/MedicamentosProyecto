@@ -55,8 +55,8 @@ public class Notificacion {
                 .setAutoCancel(true);
     }
 
-    public void dispararNotificacion(){
-        manager.notify(0, notificacion.build());
+    public void dispararNotificacion(int id){
+        manager.notify(id, notificacion.build());
     }
 }
 

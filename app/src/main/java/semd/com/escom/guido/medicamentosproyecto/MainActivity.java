@@ -1,5 +1,7 @@
 package semd.com.escom.guido.medicamentosproyecto;
 
+import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AddFragmentInterface, InitFragmentInterface{
+        implements NavigationView.OnNavigationItemSelectedListener, AddFragmentInterface, InitFragmentInterface {
     String[] projection = {
             BaseColumns._ID,
             DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE,
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     String sortOrder = BaseColumns._ID + " DESC";
 
     //Objetos e intancias
-    //AddFragment addFragment = new AddFragment();
+    Intent service;
     InitFragment initFragment = new InitFragment();
     CalendarFragment calendarFragment = new CalendarFragment();
     DBHelper dbHelper;
@@ -116,26 +118,28 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void insertRowInMedicamentoTable(ContentValues valores) {
         long newRowId = db.insert(DatabaseSchema.Medicamentos.TABLE_NAME, null, valores);
-
-        Intent service = new Intent(this, CronometroService.class);
-        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT));
-        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA));
-        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
-        startService(service);          //Inicio del servicio
-
-
-        //Notificacion notificacion = new Notificacion(this, Notificacion.NEW_MEDICAMENTO_ADD);
-        //notificacion.dispararNotificacion();
-
 
         //Recarga del fragment ListView
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContent, initFragment);
         fragmentTransaction.commit();
+
+
+        //Notificacion notificacion = new Notificacion(this, Notificacion.NEW_MEDICAMENTO_ADD);
+        //notificacion.dispararNotificacion();
+
+
+        service = new Intent(this, CronometroService.class);
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA));
+        service.putExtra(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS, valores.getAsString(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
+        service.addFlags(Service.START_STICKY);
+        startService(service);
     }
 
     @Override
@@ -170,15 +174,15 @@ public class MainActivity extends AppCompatActivity
     public List<MedicamentoClass> queryMedicamentos() {
         List<MedicamentoClass> lista = new ArrayList<MedicamentoClass>();
         Cursor cursor = db.query(DatabaseSchema.Medicamentos.TABLE_NAME,
-                        projection,
+                projection,
                 null,
                 null,
                 null,
                 null,
-                    sortOrder
-                );
+                sortOrder
+        );
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
             String nombre = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE));
             String para_que = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE));
@@ -188,33 +192,11 @@ public class MainActivity extends AppCompatActivity
             String cuantos_dias = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS));
             String medicamentoFoto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO));
             String envaseFoto = cursor.getString(cursor.getColumnIndex(DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO));
-            MedicamentoClass currentMedicamento = new MedicamentoClass(itemId, nombre,para_que,nombre_docto,cuantos_dias,init_fecha,checkpoint,envaseFoto, medicamentoFoto);
+            MedicamentoClass currentMedicamento = new MedicamentoClass(itemId, nombre, para_que, nombre_docto, cuantos_dias, init_fecha, checkpoint, envaseFoto, medicamentoFoto);
             lista.add(currentMedicamento);
         }
 
         return lista;
     }
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
