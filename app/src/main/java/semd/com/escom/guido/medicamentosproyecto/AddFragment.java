@@ -136,22 +136,22 @@ public class AddFragment extends Fragment {
                     Toast.makeText((Context) context, "Error, no se encontro la seleccion posible", Toast.LENGTH_SHORT).show();
                 }
                 ContentValues values = new ContentValues();
-                if(nombre.getText().toString().equals("")){
+                if(nombre.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(padecimiento.getText().toString().equals("")){
+                if(padecimiento.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(doctor.getText().toString().equals("")){
+                if(doctor.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(time_init.getText().toString().equals("")){
+                if(time_init.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -160,6 +160,7 @@ public class AddFragment extends Fragment {
                 Date date = new Date();
 
                 String fecha = dateFormat.format(date);
+                String concatenado = (time_init.getText().toString()) + " " + fecha;
 
                 if(envaseFilePath != null){
                     if(envaseFilePath.isEmpty()){
@@ -186,7 +187,7 @@ public class AddFragment extends Fragment {
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE, padecimiento.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR, doctor.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_CUANTOS_DIAS, total_dias);
-                values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, time_init.getText().toString());
+                values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_INIT_FECHA, concatenado);
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_CHECKPOINT, check);
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_ENVASE_FOTO, envaseFilePath);
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_MEDICAMENTO_FOTO, medicamentoFilePath);
