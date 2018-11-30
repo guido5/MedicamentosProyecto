@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -153,15 +156,32 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
-                if(envaseFilePath.equals("")){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Date date = new Date();
+
+                String fecha = dateFormat.format(date);
+
+                if(envaseFilePath != null){
+                    if(envaseFilePath.isEmpty()){
+                        Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else{
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(medicamentoFilePath.equals("")){
+                if(medicamentoFilePath != null){
+                    if(medicamentoFilePath.isEmpty()){
+                        Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else{
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE, nombre.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE, padecimiento.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR, doctor.getText().toString());

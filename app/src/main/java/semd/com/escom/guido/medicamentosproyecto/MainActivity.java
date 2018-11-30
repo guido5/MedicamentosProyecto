@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     String sortOrder = BaseColumns._ID + " DESC";
 
     //Objetos e intancias
-    AddFragment addFragment = new AddFragment();
+    //AddFragment addFragment = new AddFragment();
     InitFragment initFragment = new InitFragment();
     CalendarFragment calendarFragment = new CalendarFragment();
     DBHelper dbHelper;
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_newmedicamento) {
+            AddFragment addFragment = new AddFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContent, addFragment);
