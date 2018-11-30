@@ -153,15 +153,30 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
-                if(envaseFilePath.equals("")){
+                try{
+                    if(envaseFilePath.equals("")){
+                        Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                }catch (Exception ex){
+                    envaseFilePath = new String();
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(medicamentoFilePath.equals("")){
+                try{
+                    if(medicamentoFilePath.equals("")){
+                        Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }catch (Exception ex){
+                    medicamentoFilePath = new String();
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE, nombre.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_PARA_QUE, padecimiento.getText().toString());
                 values.put(DatabaseSchema.Medicamentos.COLUMN_NAME_NOMBRE_DOCTOR, doctor.getText().toString());
