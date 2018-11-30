@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -153,25 +156,27 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
-                try{
-                    if(envaseFilePath.equals("")){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Date date = new Date();
+
+                String fecha = dateFormat.format(date);
+
+                if(envaseFilePath != null){
+                    if(envaseFilePath.isEmpty()){
                         Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-                }catch (Exception ex){
-                    envaseFilePath = new String();
+                }else{
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try{
-                    if(medicamentoFilePath.equals("")){
+                if(medicamentoFilePath != null){
+                    if(medicamentoFilePath.isEmpty()){
                         Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                }catch (Exception ex){
-                    medicamentoFilePath = new String();
+                }else{
                     Toast.makeText(getContext(), "Dato invalido", Toast.LENGTH_SHORT).show();
                     return;
                 }
