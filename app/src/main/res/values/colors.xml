@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3fb59d</color>
-    <color name="colorPrimaryDark">#369f87</color>
-    <color name="colorAccent">#ff6481</color>
-    <color name="colorCalendarBackground">#8bb6ac</color>
-    <color name="colorText1">#121833</color>
-    <color name="colorText2">#256b5b</color>
-    <color name="colorText3">#dedede</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
 </resources>
