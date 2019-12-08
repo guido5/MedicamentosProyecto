@@ -13,6 +13,7 @@ public class HomePresenter implements HomePresentable {
     public void getMedicines() {
         //Pregutnar por la base de datos
 
+
+
     }
 }
- 
